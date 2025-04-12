@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,100,100,0.4) rgba(0,0,0,0.1);
+  overscroll-behavior: contain;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgba(100,100,100,0.4);
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: rgba(100,100,100,0.6);
+}
+
+/* Disable scroll animations during scroll */
+.scrollbar-custom * {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* Custom styles */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+  .bg-gradient-rainbow {
+    background: linear-gradient(90deg, 
+      theme('colors.cyber.red'),
+      theme('colors.cyber.orange'),
+      theme('colors.cyber.yellow'),
+      theme('colors.cyber.teal'),
+      theme('colors.cyber.blue'),
+      theme('colors.cyber.purple'),
+      theme('colors.cyber.pink')
+    );
+  }
+  .glow-border {
+    @apply relative before:absolute before:inset-0 before:rounded-[inherit] before:p-[1px] before:bg-gradient-rainbow before:content-[""] before:-z-10;
+  }
+  .neumorphism {
+    box-shadow: 
+      5px 5px 10px theme('colors.cyber.darker'),
+      -5px -5px 10px theme('colors.cyber.dark');
+  }
+  .particle-bg {
+    @apply relative overflow-hidden before:absolute before:inset-0 before:bg-grid-pattern before:bg-[length:40px_40px] before:opacity-10 before:content-[""];
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.cyber.purple') theme('colors.cyber.dark');
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: theme('colors.cyber.dark');
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: theme('colors.cyber.purple');
+    border-radius: 4px;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, theme('colors.cyber.dark'), theme('colors.cyber.purple'), theme('colors.cyber.dark'));
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes particle {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+.particle {
+  @apply absolute rounded-full;
+  animation: particle linear infinite;
+}
